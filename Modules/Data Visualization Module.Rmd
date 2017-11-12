@@ -47,8 +47,31 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
   * Take 5 minutes with your group - compare your notes, come to a group consensus - rank the top 5 reasons from the group.
   * Have your *Presenter* write the group's reasons on the board, and we'll spend some time discussing.
   
-### 1b. Principles of Visualization - an Introduction into the Grammar of Graphics
-#### 1b.1 Grammar of graphics flowchart
+### 1b Figure Critique - What makes a good data visualization?
+  * Small mini-lecture on principles of data visualization and design.
+    1. Some resources to build this: 
+      a. https://www.fusioncharts.com/whitepapers/downloads/Principles-of-Data-Visualization.pdf
+      b. https://moz.com/blog/data-visualization-principles-lessons-from-tufte
+      c. http://stat.pugetsound.edu/courses/class13/dataVisualization.pdf
+      d. http://paldhous.github.io/ucb/2016/dataviz/week2.html
+      
+Figures:  
+
+  1. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/3d-column-chart-of-awesome.png)  
+  
+  2. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/Bling_fig3.jpg)  
+  
+  3. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/cawley_fig1.jpg)  
+  
+  4. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/roeder_fig4.jpg)  
+  
+      
+  * Students will examine and critique figures from primary literature in their groups. Each group
+      will be passed a figure, students will take 10 minutes to try to interpret the figure, and
+      generate a list of problems. Each group will also draw and present a reimagined version of the       figure that is better. 
+  
+### 1c. Principles of Visualization - an Introduction into the Grammar of Graphics
+#### 1c.1 Grammar of graphics flowchart
   * Hand out labeled pieces of paper to groups:
       1. A fake data frame (data)
       2. A series of mappings based on that data frame (aesthetics)
@@ -60,7 +83,7 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
   
   * Spend 5 minutes and discuss the different flowcharts, though everyone should probably be on the same page on this. 
   
-#### 1b.2 Grammar of graphics deconstruction
+#### 1c.2 Grammar of graphics deconstruction
   * Groups will work to decode a complex figure into its different graphical pieces
   
 Here is the code and figure, based on the mtcars dataset.
@@ -78,7 +101,7 @@ head(mtcars)
 #The plot they need to deconstruct
 ggplot(data = mtcars, aes(x = log(mpg), y = log(hp), col = factor(cyl))) +
   geom_point(aes(size = wt), alpha = 0.6) +
-  theme_bw() +
+  theme_classic() +
   theme() +
   labs(x = "log MPG", 
        y = "log Horsepower", 
@@ -115,7 +138,7 @@ head(rice)
 ?hist
 
 #Lots of parameters, but only one we really need is "x" - feed the function a vector. 
-hist(rice$RootDryMass)
+hist(rice$RootDryMass, xlab = "Root Dry Mass (mg)", main = "")
 ```
 
   * Cool. It worked. Everyone's worked, right? CHECK AND MAKE SURE EVERYONE HAS IT UP AND RUNNING! 
@@ -163,7 +186,11 @@ boxplot(ShootDryMass ~ variety, data = rice, ylab = "Weight (g)")
   
   * See if you can figure it out from the helpfile in your groups. 
   
-  
-  
-  
-  
+There plot should look something like this:
+``` {r}
+
+plot((rice$RootDryMass), (rice$ShootDryMass), pch = 16, xlab = "Root Dry Mass (mg)",
+     ylab = "Shoot Dry Mass (mg)")
+```
+
+
