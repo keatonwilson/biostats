@@ -56,7 +56,7 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
       4. Annotations
       5. Coordinate system
   * Have students work in groups and try and develop a flow chart for how these things fit together.
-  * It should look something like this: ![](graphgrammar.png){width=50%}
+  * It should look something like this: ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/graphgrammar.png){width=50%}
   
   * Spend 5 minutes and discuss the different flowcharts, though everyone should probably be on the same page on this. 
   
