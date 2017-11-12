@@ -1,0 +1,169 @@
+---
+title: "Data Visualization - Week 3"
+author: "Keaton Wilson"
+date: "11/2/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Learning Objectives
+
+1. Students will be able to distinguish bad visualizations from good visualizations, based on aesthetic principles of design.
+
+2. Students will be able to label the different pieces of visualizations: data, aesthetics (mappings) and geoms (layers).
+
+3. Students will be able to use skills developed in previous weeks to successfully install new packages, access helpfiles and understand the structure and summary of datasets.
+
+3. Students will be able to write scripts that produce simple plots (histograms, scatter plots and boxplots) with base R plotting, and understand the basic syntax and structure of this function. 
+
+4. Students will be able to think critically to use base R or ggplot to produce new visualizations using the expertise of their classmates, the basic syntax they learned in class, and the helpfiles associated with R (and with the web). 
+
+## POGIL Group Setup:
+1. Conceptor (Manager)- In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
+
+2. Coder/Recorder - the person writing the bulk of the code. Importing packages, annotating code throughout. Recording ideas.
+
+3. Error Checker (Reflector) - In addition to reflector duties, this person responsible for debugging code, using helpfiles, etc. 
+
+4. Explainer/Presenter - the person that will do the speaking out. Be able to explain the code and the rationale of each bit to the rest of the class. Should also explain the consensus of the group about what the data show us.
+
+***
+## Part 1 - A Visualization Primer - (30 minutes)
+  
+  Some inspiring figures:  
+http://www.r-graph-gallery.com/19-map-leafletr/  
+http://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2  
+http://www.r-graph-gallery.com/274-map-a-variable-to-ggplot2-scatterplot/  
+http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/  
+  
+  
+### 1a. Why do visualizations matter? - Small Group Activity
+
+  * Why is this week 3? Why so early and why are we spending so much time on it?
+  * Take 3 minutes individuals - write down your top 10 reasons why data visualization is important or useful to you?
+  * Take 5 minutes with your group - compare your notes, come to a group consensus - rank the top 5 reasons from the group.
+  * Have your *Presenter* write the group's reasons on the board, and we'll spend some time discussing.
+  
+### 1b. Principles of Visualization - an Introduction into the Grammar of Graphics
+#### 1b.1 Grammar of graphics flowchart
+  * Hand out labeled pieces of paper to groups:
+      1. A fake data frame (data)
+      2. A series of mappings based on that data frame (aesthetics)
+      3. A set of geometric objects (geoms)
+      4. Annotations
+      5. Coordinate system
+  * Have students work in groups and try and develop a flow chart for how these things fit together.
+  * It should look something like this: ![](graphgrammar.png){width=50%}
+  
+  * Spend 5 minutes and discuss the different flowcharts, though everyone should probably be on the same page on this. 
+  
+#### 1b.2 Grammar of graphics deconstruction
+  * Groups will work to decode a complex figure into its different graphical pieces
+  
+Here is the code and figure, based on the mtcars dataset.
+
+```{r results = "hide", message=FALSE, error=FALSE}
+#Loading Tidyverse with ggplot and all the goodies
+library(tidyverse)
+```
+
+```{r plot_deconstruction}
+#Scoping out what the data look like
+head(mtcars)
+#A data frame with a bunch of data on different cars.... cool. Let's plot a bunch of different variables.
+
+#The plot they need to deconstruct
+ggplot(data = mtcars, aes(x = log(mpg), y = log(hp), col = factor(cyl))) +
+  geom_point(aes(size = wt), alpha = 0.6) +
+  theme_bw() +
+  theme() +
+  labs(x = "log MPG", 
+       y = "log Horsepower", 
+       color = "Cylinders", 
+       size = "Weight")
+```
+
+## Part 2 - Basic Plotting in R  
+
+### 2a Plotting 1 variable - the histogram - (10 minutes)
+
+  * We're going to be working with the rice data set in the DAAG package, so the first step is a refresher of skills you learned last week. 
+  * Everyone install the DAAG package, and call up the top part of the rice dataset. 
+  
+```{r, tidy=TRUE, eval=FALSE}
+install.packages("DAAG")
+```
+```{r, tidy=TRUE, error=FALSE, message=FALSE}
+library(DAAG)
+head(rice)
+```
+  * This data set shows data from an experiment where researchers were interested in how a genetically modified rice variety grew on different fertilizer        treatments compared to a non-GMO variety.  
+  
+  * Ask students what are the different columns here, and what do they mean? (1 and 2 are ID numbers, 3 and 4 are measures of root and shoot mass,
+      trt is each factorial treatment, but fert and variety are more useful - which fertilizer used and which variety of rice).  
+      
+  * We're going to start by plotting a basic histogram in base R. We want to see the distribution of values for RootDryMass.  
+  
+  * We're going to use the hist() function to accomplish this. You learned last time that a function usually takes parameters, hist is no different. 
+      We need to feed it the right inputs to get the right outputs. 
+
+```{r, histogram_code, tidy=TRUE}
+#Call up the helpfile on hist
+?hist
+
+#Lots of parameters, but only one we really need is "x" - feed the function a vector. 
+hist(rice$RootDryMass)
+```
+
+  * Cool. It worked. Everyone's worked, right? CHECK AND MAKE SURE EVERYONE HAS IT UP AND RUNNING! 
+  
+### 2b Making a histogram better by modifying parameters - (10 minutes)
+
+  * Let's identify some problems with this figure: 
+    1. The bins are too big, we need more resolution
+    2. Our axis labels suck. Let's make them better.
+    
+  * Get into your groups. Here is my challenge to you: produce a histogram using the hist() function on the rice$RootDryMass data that addresses 
+      the issues we discussed. Copy and paste your script into an email and send it to me. 
+      
+  * In theory, their answers should look something like this:
+```{r, good_hist, tidy=TRUE}
+hist(rice$RootDryMass, breaks = 10, main = NULL, xlab = "Root Dry Mass (g)")
+```
+
+### 2c Plotting 2 variables (boxplots)
+
+  * 1 Variable is great, but your data will often contain more than just one variable. Think about the rice data table. What do you think the scientists are interested in plotting?
+  * What are some potential figures that scientists could plot? What would the figures look like?
+  * Take 5 minutes in your group. Have your manager/conceptor draw as many different types of figures as they can form the data. 
+  * Put figures on the board - among these will probably be boxplots and maybe scatter plots? We'll talk about these next.
+  
+  * boxplot()
+  * It's a function. You have to feed it parameters like anything else. Check out the helpfile.
+  
+#### Group Challenge Assignment - Make a boxplot
+  * Construct a boxplot that plots the shoot dry mass as a function of each rice variety. 
+  * It should have nice labels (Hint: you'll want to feed the function the ylab parameter)!
+  
+``` {r}
+boxplot(ShootDryMass ~ variety, data = rice, ylab = "Weight (g)")
+
+```
+
+  * It's probably worth saying here that it's probably worth mentioning that not everyone will know what the different pieces of the boxplot mean... and that's ok. They've all probably seen figures like this before though. We'll talk about the measures later.
+  
+  
+#### Group Challenge Assigment - make a scatter plot.
+  * Same as above - different data though. Use the rice data set, plot root weight vs. shoot weight, using the plot() function. 
+  
+  * plot() is a more general function, we have to specify some extra information, like the type of plot we want it to spit out. 
+  
+  * See if you can figure it out from the helpfile in your groups. 
+  
+  
+  
+  
+  
