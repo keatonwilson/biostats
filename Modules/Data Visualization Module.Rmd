@@ -245,3 +245,39 @@ ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) +
   theme_classic()
 
 ```
+
+We can change attributes within geoms - imagine you wanted the points to be bigger.
+```{r} 
+ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) +
+  geom_point(size = 4) + 
+  xlab("Root Dry Mass (mg)") +
+  ylab("Shoot Dry Mass (mg)") +
+  theme_classic()
+
+```
+
+And... we can layer on other geometries. Imagine you wanted to add a trendline with a 95% confidence interval to this figure, and make the points a little transparent to prevent overplotting. 
+```{r} 
+ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) +
+  geom_point(size = 4, alpha = 0.4) + 
+  geom_smooth(method = "lm") +
+  xlab("Root Dry Mass (mg)") +
+  ylab("Shoot Dry Mass (mg)") +
+  theme_classic()
+```
+
+
+#### 3b - ggplot challenge.
+
+I'm going to show you a figure on the board from the rice data set. Your job is to replicate the figure within your group.
+
+``` {r, echo = FALSE} 
+ggplot(rice, aes(x = RootDryMass, y = ShootDryMass, color = fert)) +
+  geom_point(size = 4, alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Root Dry Mass (mg)", 
+       y = "Shoot Dry Mass (mg)", 
+       color = "Fertilizer Type") +
+  theme_classic()
+  
+```
