@@ -194,3 +194,54 @@ plot((rice$RootDryMass), (rice$ShootDryMass), pch = 16, xlab = "Root Dry Mass (m
 ```
 
 
+### 3 An introduction to ggplot2
+#### 3a. An Introduction to the Grammar of Graphics in ggplot2
+
+  * You already know this. It's what we worked on in the first part of class. 
+  * Different pieces: Data, Mappings (aesthetics), geoms, attributes.
+
+Let's look at some base-R code:
+
+```{r, eval=FALSE}
+plot(rice$RootDryMass, rice$ShootDryMass, pch = 16, xlab = "Root Dry Mass (mg)",
+     ylab = "Shoot Dry Mass (mg)"))
+```
+
+  * Talk through the pieces above - the syntax is a bit weird.
+    1. Mappings are mixed with data, attributes in the same string
+    2. There aren't really different ways to put different geoms on the thing.
+    3. No way to layer.
+
+  * There is an additional package that is used by a lot of people called ggplot2 that
+      makes constructing graphs more in line with the grammar of graphics framework, and generally  
+      allows you to make some really damn pretty figures.
+      
+First things first, you'll need to download and install the packages:
+
+```{r results = "hide", message=FALSE, error=FALSE}
+#Loading Tidyverse with ggplot and all the goodies
+library(tidyverse)
+```
+
+  * First things first, let's check out the helpfile. The package is ggplot2, the function is simply     ggplot.
+  * `{r} ?ggplot `
+  * Give them some time to read through the helpfile, then break it down. 
+    a. What is the name of the function, what are the first things you need to feed the function?
+    b. Data, mappings. ` {r} ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) `
+    c. Run this code above. What happens? NOTHING! Why? Because we didn't include any geometries. :)
+    
+```{r} 
+ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) +
+  geom_point()
+```
+
+Boom! We've got the graph we did in base R above (more or less). Here is how to change the labels, and use a theme that is a bit less clouded.
+
+```{r} 
+ggplot(rice, aes(x = RootDryMass, y = ShootDryMass)) +
+  geom_point() + 
+  xlab("Root Dry Mass (mg)") +
+  ylab("Shoot Dry Mass (mg)") +
+  theme_classic()
+
+```
