@@ -31,7 +31,7 @@ knitr::opts_chunk$set(echo = TRUE)
 4. Explainer/Presenter - the person that will do the speaking out. Be able to explain the code and the rationale of each bit to the rest of the class. Should also explain the consensus of the group about what the data show us.
 
 ***
-## Part 1 - A Visualization Primer - (30 minutes)
+## Part 1 - A Visualization Primer - (45 minutes)
   
   Some inspiring figures:  
 http://www.r-graph-gallery.com/19-map-leafletr/  
@@ -157,7 +157,7 @@ hist(rice$RootDryMass, xlab = "Root Dry Mass (mg)", main = "")
 hist(rice$RootDryMass, breaks = 10, main = NULL, xlab = "Root Dry Mass (g)")
 ```
 
-### 2c Plotting 2 variables (boxplots)
+### 2c Plotting 2 variables (boxplots - 15 minutes)
 
   * 1 Variable is great, but your data will often contain more than just one variable. Think about the rice data table. What do you think the scientists are interested in plotting?
   * What are some potential figures that scientists could plot? What would the figures look like?
@@ -179,7 +179,7 @@ boxplot(ShootDryMass ~ variety, data = rice, ylab = "Weight (g)")
   * It's probably worth saying here that it's probably worth mentioning that not everyone will know what the different pieces of the boxplot mean... and that's ok. They've all probably seen figures like this before though. We'll talk about the measures later.
   
   
-#### Group Challenge Assigment - make a scatter plot.
+#### Group Challenge Assigment - make a scatter plot (15 minutes).
   * Same as above - different data though. Use the rice data set, plot root weight vs. shoot weight, using the plot() function. 
   
   * plot() is a more general function, we have to specify some extra information, like the type of plot we want it to spit out. 
@@ -194,7 +194,7 @@ plot((rice$RootDryMass), (rice$ShootDryMass), pch = 16, xlab = "Root Dry Mass (m
 ```
 
 
-### 3 An introduction to ggplot2
+### 3 An introduction to ggplot2 (45 minutes)
 #### 3a. An Introduction to the Grammar of Graphics in ggplot2
 
   * You already know this. It's what we worked on in the first part of class. 
@@ -281,3 +281,9 @@ ggplot(rice, aes(x = RootDryMass, y = ShootDryMass, color = fert)) +
   theme_classic()
   
 ```
+
+Reflector assignment (10 minutes)  
+  * Write a 1 paragraph summary of some of the challenges your group faced while working through these exercises. 
+      Focus on how you divided the workload based on your group job assignments, and how you worked through those challenges as a group. 
+      What would you try and do differently in the next module as a group to alleviate some of these challenges?  
+  * Email me this reflection.
