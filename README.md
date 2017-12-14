@@ -6,23 +6,29 @@ This project is a repository for the POGIL Biostats course developed by Nicholas
  
 ### Needs layout editing - the language is Markdown. 
 
-Introductory Biostatistics
+##Introductory Biostatistics
 
-Who is it geared for? 300 level - No statistics experience, but bio majors.
-Goal of the Course: Equip undergraduates with the tools to collect and manage data, visualize data, choose and conduct basic statistical tests on their data, using R
-	Sub Goal- Ensure students have a strong working vocabulary of statistical concepts
-	Sub Goal- Make a SWIRL course module? 
+Who is it geared for? 300 level - No statistics experience, but bio majors.  
+
+Goal of the Course: Equip undergraduates with the tools to collect and manage data, visualize data, choose and conduct basic statistical tests on their data, using R  
+  * Sub Goal- Ensure students have a strong working vocabulary of statistical concepts  
+  * Sub Goal- Make a SWIRL course module?   
 2x per week - 1.5 hour class length. Open lab possibility?
 
 Textbooks/Recommend: How to Lie with Statistics
 
-Mechanics of R, R studio (other basic biocomputing tools) - SWIRL, GGPLOT? [Week 1]
-Nick
-Mechanics of data collection and importing into R [Week 1] 
-Make a bunch of different vectors and smash together into data frames in different ways 
-Object Stuff etc
-Robbie
-Visualizing Data and Interpretation (How to Lie with Stats) [Week 2]
+## Course Overview
+***
+####1. Mechanics of R, R studio (other basic biocomputing tools) - SWIRL, GGPLOT? - Nick  [Week 1]
+
+####2. Mechanics of data collection and importing into R - Robbie - [Week 2]
+
+  
+a. Make a bunch of different vectors and smash together into data frames in different ways  
+b. Object Stuff etc.  
+
+###3. Visualizing Data and Interpretation (How to Lie with Stats) [Week 3]
+
 Learning about different classes of data [Week 4]- NICK
 Data types, etc [Week 4]
 Have students collect in-class data (arm length, height, eye/hair color)

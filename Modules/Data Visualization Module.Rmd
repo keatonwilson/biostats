@@ -2,7 +2,9 @@
 title: "Data Visualization - Week 3"
 author: "Keaton Wilson"
 date: "11/2/2017"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -108,7 +110,10 @@ ggplot(data = mtcars, aes(x = log(mpg), y = log(hp), col = factor(cyl))) +
        color = "Cylinders", 
        size = "Weight")
 ```
-
+  * Show groups the Figure, not the code. 
+  * Part 1 - Draw the Figure on paper. Have the group label each piece clearly.
+  * Report out. Show figure up on the screen and draw on/label each piece based on group feedback.   
+  
 ## Part 2 - Basic Plotting in R  
 
 ### 2a Plotting 1 variable - the histogram - (10 minutes)
