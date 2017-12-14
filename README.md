@@ -27,25 +27,29 @@ Textbooks/Recommend: How to Lie with Statistics
 a. Make a bunch of different vectors and smash together into data frames in different ways  
 b. Object Stuff etc.  
 
-###3. Visualizing Data and Interpretation (How to Lie with Stats) [Week 3]
+####3. Visualizing Data and Interpretation [Week 3] - Keaton
 
-Learning about different classes of data [Week 4]- NICK
-Data types, etc [Week 4]
-Have students collect in-class data (arm length, height, eye/hair color)
-Learning Objectives
-Students will be able to determine the different classes of data - numeric, integer, factor, character
-Figure out how R can tell you what class it is
-Can assign data classes to different data types - e.g. what is height?
-Think of some tricky ones - e.g. what type of data would a DNA sequence be?  
-Can plot different types of data - what type for binary, continuous, etc. 
-Can relate data types back to plotting info from past week
-Descriptive statistics - Week 5
-Mean, median, mode, range, min max, quantiles?
-Variance and error [Week 6] - Keaton
-Learning Objectives:
-Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (lying with charts).
-Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important). 
-Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here). 
+####4.Learning about different classes of data [Week 4]- NICK
+
+a. Data types, etc [Week 4]
+b. Have students collect in-class data (arm length, height, eye/hair color)
+c. Learning Objectives
+    1. Students will be able to determine the different classes of data - numeric, integer, factor, character
+    2. Figure out how R can tell you what class it is
+    3. Can assign data classes to different data types - e.g. what is height?
+    4. Think of some tricky ones - e.g. what type of data would a DNA sequence be?  
+    5. Can plot different types of data - what type for binary, continuous, etc. 
+    6. Can relate data types back to plotting info from past week  
+    
+####5.Descriptive statistics - [Week 5] - Nick
+a. Mean, median, mode, range, min max, quantiles?
+
+####6. Variance and error [Week 6] - Keaton
+a. Learning Objectives:
+    1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance           matters (lying with charts).  
+    2.Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence       interval (subtle, but important).  
+    3.Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
+    
 What is a p-value, limit of just that value, and other measures [Week 7]
 LEARNING OUTCOMES:
 Students will understand the relationship between p-values and probability
