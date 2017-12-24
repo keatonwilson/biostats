@@ -78,6 +78,8 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
   geom_linerange(stat = "summary",
                   fun.ymin = function(z) {quantile(z, 0.25)},
                   fun.ymax = function(z) {quantile(z,0.75)}, fun.y = "median") +
-  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point")
+  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point", alpha = 0.6)
+```
 
-  
+This code is pretty complex. Don't worry too much about it the structure (thuogh remember what we built here so you can poach code at some point down the road)!
+
