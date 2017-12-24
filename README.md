@@ -46,9 +46,9 @@ a. Mean, median, mode, range, min max, quantiles?
 
 ####6. Variance and error [Week 6] - Keaton
 a. Learning Objectives:
-    1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance           matters (lying with charts).  
-    2.Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence       interval (subtle, but important).  
-    3.Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
+    1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (lying with charts).  
+    2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important).  
+    3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
     
 What is a p-value, limit of just that value, and other measures [Week 7]
 LEARNING OUTCOMES:
