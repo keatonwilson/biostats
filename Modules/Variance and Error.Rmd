@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(Hmisc)
 ```
 ##Learning Objectives:  
   1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (lying with charts).
@@ -16,5 +18,66 @@ knitr::opts_chunk$set(echo = TRUE)
   3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
 
 
-## 1. Why is quantifying and plotting error important?
+## 1a. Why is quantifying and plotting error important?
 
+Let's test this out by building some charts in R. We talked a few weeks ago about data visualization, and everyone has seen typcial bar charts - be it in scientific papers or on Fox News. Let's plot some stuff and explore why error is important.
+
+```{r}
+#Load ggplot2 along with the msleep data set
+library(ggplot2)
+
+#inspect the msleep data set
+str(msleep) 
+```
+
+####1b. Group Challenge #1 - Review: practicing working with new data
+
+In your groups, take 3 minutes to answer the following three questions:
+
+1. What different data types are represented here?
+2. What variables are shown?
+3. How many observations are in this data set?
+
+I'll randomly call on group reporters for answers!
+
+###1c. Bar charts
+
+```{r}
+#Let's build a bad bar chart - one interesting question we might ask - what is the difference in time spent sleeping across different feeding types? i.e. do herbivores sleep more than carnivores?
+
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total)) +
+  geom_col() + 
+  theme_classic()
+```
+
+####1d. Group Challenge #2 - What's wrong with this plot?
+
+  * Work together in your groups. Spend 10 minutes discussing the plot you just generated.    Focus on a few key points. 
+    1. What conclusion does an uninformed reader take away from this plot?
+    2. What are some of the problems with visualizing data this way?
+    3. What might you want to know to make better interpretations of the data here?
+    4. How would you make the plot better? The conceptors will draw their versions of          better plots on the board. 
+    
+  You'll report out after the 10 minutes. 
+  
+  General Problems students will come up with:  
+  1. Only showing averages, no idea of the spread of the data - can we draw accurate         conclusions just from averages?
+  2. Other graphical problems
+  3. Data exists above the average and below the average, but it looks like there is only    data below the average (bar charts suck). 
+  
+Let's make a better chart.
+
+``` {r}
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  geom_linerange(stat = "summary",
+                  fun.ymin = function(z) {quantile(z, 0.25)},
+                  fun.ymax = function(z) {quantile(z,0.75)}, fun.y = "median") +
+  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point")
+
+  
