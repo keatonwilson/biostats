@@ -50,18 +50,21 @@ a. Learning Objectives:
     2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important).  
     3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
     
-What is a p-value, limit of just that value, and other measures [Week 7]
-LEARNING OUTCOMES:
-Students will understand the relationship between p-values and probability
-Probability of data, not hypothesis
-Students will describe what an alpha value represents
-History of alpha=0.05
-Students will use the correct language to evaluate a hypothesis using a p-value
-Null vs your ACTUAL hypothesis
-Students will differentiate between Type I and Type II errors, and describe their relationship to p-values.
-Relationship between sample sizes and p-values
-Probability (Think about this)
-Make into a POGIL about probability?
+#### 7.What is a p-value, limit of just that value, and other measures [Week 7]
+##### Learning outcomes:
+  1. Students will understand the relationship between p-values and probability
+    * Probability of data, not hypothesis
+  2. Students will describe what an alpha value represents
+    * History of alpha=0.05
+  3. Students will use the correct language to evaluate a hypothesis using a p-value
+    * Null vs your ACTUAL hypothesis
+  4. Students will differentiate between Type I and Type II errors, and describe their relationship to       p-values.
+  5. Other stuff
+    * Relationship between sample sizes and p-values
+    * Probability (Think about this)
+    * Make into a POGIL about probability?  
+
+
 Data Exploration - Using data to figure out what tests are useful for different data types
 Correlation: Pearson, spearman, kendall [Week 8]
 Chi squared / fisher’s exact [Week 9]
