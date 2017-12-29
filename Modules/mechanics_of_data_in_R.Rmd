@@ -1,0 +1,81 @@
+---
+title: "Mechanics of Data Manipulation in R"
+author: "RAZ"
+date: "December 7, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In the space below, save a number to an object, and inspect the object
+```{r}
+
+```
+
+In the space below, divide your object by 2, and add your object to itself
+```{r}
+
+```
+
+In the space below, generate code that will save the result of multiplying your object by 3 into a new object (REPORT OUT)
+
+```{r}
+
+```
+
+In the space below, create a new object, named "weight", and assign the vector provided to this object
+```{r}
+##Below you see a function, known as concatenate(), or just c(), which takes all of the numbers and puts them into a "vector", which is essentially a "line" of numbers
+c(39, 48, 36, 26, 20, 47, 35, 31, 21, 34)
+```
+
+Below, inspect the vector you just made, and perform the same mathematical operations that you used earlier on your vector. Compare and contrast the results of each, record this, and report out. 
+```{r}
+
+```
+
+Make two new vectors named "parasites" and "sex" that contains the values provided on your handout
+```{r}
+
+```
+
+Let's try some more complicated work with vectors. In the space below calculate the mean number of parasites, and divide each value of "weight" by the mean number of parasites. REPORT OUT YOUR CODE
+```{r}
+
+```
+
+
+
+Most of the operations you will perform in R (statistical analysis, graphing), use "data frames", which is a fancy way of referring to a collection of columns and rows. There are specifics about the parts of a data frame I'll explain later
+To make a data frame from a group of vectors is easy! Simply type data.frame() and fill in the names of the vectors in the parenthesis. In the space below, make and save a data frame that contains the "sex" and "parasites" vectors.
+```{r}
+
+```
+
+Inspect the data frame, and use the functions summary(), str(), and head() on your new data frame.
+
+
+Sometimes you want to add new things to an existing data frame. The command cbind() can be used to do so. First, add a column containing the vector "weight" to your data frame.
+```{r}
+
+```
+
+Remember, though, you can do math in R! Add another column to your data frame containing the log values of "weights" by using log() and cbind(). 
+```{r}
+
+```
+
+There are many ways to get at different parts of your data frame, once you've made it. One way is to add the "$" modifier after the name of your data frame. Another way is to use brackets with commas and numbers. Try calling parts of your data frame with the dollar sign, and experiment by using [], [1,], [,1], and [1,1] to extract different parts of your frame. REPORT OUT YOUR RESULTS
+```{r}
+
+```
+
+For your final task, using everything you've learned today, add a column to your data frame which contains a vector of the weight of each entry divided by the number of parasites in that entry
+
+```{r}
+
+```
+
