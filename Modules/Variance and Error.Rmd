@@ -11,7 +11,7 @@ library(tidyverse)
 library(Hmisc)
 ```
 ##Learning Objectives:  
-  1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (lying with charts).
+  1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (more lying with charts).
   
   2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important).
   
@@ -54,18 +54,18 @@ ggplot(aes(x = factor(vore), y = sleep_total)) +
 
 ####1d. Group Challenge #2 - What's wrong with this plot?
 
-  * Work together in your groups. Spend 10 minutes discussing the plot you just generated.    Focus on a few key points. 
+  * Work together in your groups. Spend 10 minutes discussing the plot you just generated. Focus on a few key points. 
     1. What conclusion does an uninformed reader take away from this plot?
     2. What are some of the problems with visualizing data this way?
     3. What might you want to know to make better interpretations of the data here?
-    4. How would you make the plot better? The conceptors will draw their versions of          better plots on the board. 
+    4. How would you make the plot better? The conceptors will draw their versions of better plots on the board. 
     
   You'll report out after the 10 minutes. 
   
   General Problems students will come up with:  
-  1. Only showing averages, no idea of the spread of the data - can we draw accurate         conclusions just from averages?
+  1. Only showing averages, no idea of the spread of the data - can we draw accurate conclusions just from averages?
   2. Other graphical problems
-  3. Data exists above the average and below the average, but it looks like there is only    data below the average (bar charts suck). 
+  3. Data exists above the average and below the average, but it looks like there is only data below the average (bar charts suck). 
   
 Let's make a better chart.
 
@@ -82,4 +82,41 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
 ```
 
 This code is pretty complex. Don't worry too much about it the structure (thuogh remember what we built here so you can poach code at some point down the road)!
+
+Quickly run through what is better about this - and how your conclusions differed with this data visualization versus the first one we made. Maybe put up both side by side.
+
+### 2. Different ways to talk about variance and error
+
+There are different ways of quantifying error. Let's talk about them, their definitions, their usefulness and how they're calculated. 
+
+#### 2a. Variance
+
+Variance is a numerical description of how a set of data sits around the mean of that data. 
+  * High variance = lots of spread.
+  * Low variance = not much spread.
+  
+What does this look like?
+
+```{r}
+#Let's generate some fake data. 2 populations of rabbits, where we measured ear length. 
+
+library(tidyverse)
+set.seed(42)
+pop1 = data.frame(ear_length = rnorm(mean = 25, n = 123, sd = 5),
+                  population = "pop1")
+pop2 = data.frame(ear_length = rnorm(mean = 25, n = 145, sd = 2),
+                  population = "pop2")
+hop = as.tibble(bind_rows(pop1, pop2))
+
+ggplot(hop, aes(x = ear_length, fill = population)) +
+  geom_histogram(binwidth = 0.5) +
+  theme_classic()
+```
+
+Questions for the groups (10 minutes and then report out)  
+  1. Which population has the highest variance? How can you tell?  
+  2. Does the population mean have any effect on the population's variance?  
+  3. What sort of (biological) conclusions might you draw about these two populations? What hypotheses would you make for why we see differences in variance in ear length?  
+
+
 
