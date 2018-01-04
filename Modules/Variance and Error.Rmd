@@ -89,7 +89,7 @@ Quickly run through what is better about this - and how your conclusions differe
 
 There are different ways of quantifying error. Let's talk about them, their definitions, their usefulness and how they're calculated. 
 
-#### 2a. Variance
+#### 2a. Tools to describe variance
 
 Variance is a numerical description of how a set of data sits around the mean of that data. 
   * High variance = lots of spread.
@@ -118,5 +118,78 @@ Questions for the groups (10 minutes and then report out)
   2. Does the population mean have any effect on the population's variance?  
   3. What sort of (biological) conclusions might you draw about these two populations? What hypotheses would you make for why we see differences in variance in ear length?  
 
+Ok, so we can see the variance, but can we quantify it? Yep.
+
+```{r}
+#Variance caluclation for rabbit population 1
+var(hop[hop$population == "pop1",]$ear_length)
+
+#Variance calculation for rabbit population 2
+var(hop[hop$population == "pop2",]$ear_length)
+
+```
+
+####2a. Standard Deviation
+
+Standard deviation is another measure people use frequently - it's just the square root of the variance - it's nice because the units are the same as the mean.  
+R has a function for sd as well!
+
+```{r}
+#Showing that that the square root of the variance is the calculation for the SD
+#Square root of the variance
+var(hop[hop$population == "pop1",]$ear_length)^(0.5)
+
+#Using the SD function
+sd(hop[hop$population == "pop1",]$ear_length)
+```
+
+You'll also see people throw around standard error of the mean. The standard error is simply the standard deviation divided by the square root of the sample size.  
+This serves a different purpose than standard deviation. 
+SD gives you information about the spread and variability of your data.
+SEM gives you infromation about the precision of your mean, or looking at differences between groups.
+
+No built in function.
+```{r}
+
+#Writing a short SEM function
+sem = function(x) {
+  sd(x)/sqrt(length(x))
+}
+
+#calculating the SEM for 
+sem(hop[hop$population == "pop1",]$ear_length)
+```
+
+Let's go back to the Mammal sleep dataset
+
+```{r}
+#This is the figure from before - what if I wanted to plot the SEM instead of the quantile thing I plotted here?
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  geom_linerange(stat = "summary",
+                  fun.ymin = function(z) {quantile(z, 0.25)},
+                  fun.ymax = function(z) {quantile(z,0.75)}, fun.y = "median") +
+  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point", alpha = 0.6)
 
 
+#First, we have to generate the summary data to plot on top of the raw points
+sleep_summary = msleep %>%
+  filter(!is.na(vore)) %>%
+    group_by(vore) %>%
+      summarise(N = length(sleep_total),
+                mean = mean(sleep_total),
+                sd = sd(sleep_total),
+                sem = sd / sqrt(N))
+
+
+
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  geom_linerange(data = sleep_summary, aes(ymin = sleep_summary) +
+  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point", alpha = 0.6)
