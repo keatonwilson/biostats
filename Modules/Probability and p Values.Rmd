@@ -72,7 +72,7 @@ What about the median value?
 In the space below, figure out a way to calculate the mean and median of our data set "x". After you have calculated the mean and median, reproduce my b=plot above and use the function abline() to add a blue vertical line at the mean.
 ```{r}
 
-abline(v=, col=)
+#abline(v=, col=)
 
 ```
 
