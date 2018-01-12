@@ -10,9 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Learning Objectives
 
-1. Students will be able to recognize the different types of R objects
+1. Students will be able to recognize the different types of R objects.
 
-2. Students will be able to enter vectors manually, generate vectors automatically, get information about a vector, return specific items from a vector, and transform vectors 
+2. Students will be able to enter vectors manually, generate vectors automatically, get information about a vector, return specific items from a vector, and transform vectors.
 
 3. Students will be able to generate a data frame from a group of vectors, and understand how to access different parts of a data frame.
 
