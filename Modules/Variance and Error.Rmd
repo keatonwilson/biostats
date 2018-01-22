@@ -143,6 +143,7 @@ var(hop[hop$population == "pop1",]$ear_length)^(0.5)
 sd(hop[hop$population == "pop1",]$ear_length)
 ```
 
+####2b. Standard Error of the Mean
 You'll also see people throw around standard error of the mean. The standard error is simply the standard deviation divided by the square root of the sample size.  
 This serves a different purpose than standard deviation. 
 SD gives you information about the spread and variability of your data.
@@ -191,5 +192,28 @@ msleep %>%
 ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
   geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
   theme_classic() +
-  geom_linerange(data = sleep_summary, aes(ymin = sleep_summary) +
-  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point", alpha = 0.6)
+  stat_summary(fun.y = "mean", size = 4, color = "blue", geom = "point", alpha = 0.6) +
+  stat_summary(fun.data = mean_se, geom = "linerange")
+```
+
+
+####2d. 95% confidence intervals  
+And finally, 95% confidence intervals. The "be all, end all" for stats in science. :/  
+**Formal definition:** frequency of possible confidence intervals that contain the true value of their corresponding parameter. So... a 95% confidence interval of the mean means that here, if we sampled the data an infinite number of times, 95% of the confidence intervals that we would generate would contain the mean. 
+
+**Practical definition:** if your confidence intervals overlap a lot, your means aren't different from each other. If they don't overlap, your means are probably different. There is a lot of debate about the history and utility of confidence intervals, which you will probably encounter. Just be prepared.  
+
+Here is how we calculate them:  
+
+``` {r}
+#Same plot as before:
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  stat_summary(fun.y = "mean", size = 4, color = "blue", geom = "point", alpha = 0.6) +
+  stat_summary(fun.data = mean_cl_normal, geom = "linerange")
+```
+
+A quick summary
