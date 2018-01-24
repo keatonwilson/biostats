@@ -13,7 +13,7 @@ library(Hmisc)
 ##Learning Objectives:  
   1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (more lying with charts).
   
-  2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important).
+  2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance, IQR) - REAL definition of 95% confidence interval (subtle, but important).
   
   3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
 
@@ -216,4 +216,80 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
   stat_summary(fun.data = mean_cl_normal, geom = "linerange")
 ```
 
-A quick summary
+####2e. IQR (Interquartile Range)
+
+Formally, the distance that contains 50% of your data (between the 1st and 3rd quartile). Most commonly shown in boxplots, which ARE THE FAR SUPERIOR VERSION OF BAR CHARTS. Also, we're not really going to talk about distribution skews in here, but IQR is pretty robust to skewed distributions. 
+
+Group exercise
+
+Together as a group - answer the following questions about the following chart:  
+  1. What does the horizontal bar in the middle of the box depict?  
+  2. What do the two horizontal sides of the box represent?  
+  3. What do the vertical lines represent?  
+  4. Why are the top 4 dots in the omnivore group not included in the rest of the data?  
+
+``` {r}
+#Boxplot and IQR
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.4) + 
+  theme_classic() 
+
+```
+
+
+####3. Putting it all together - mini Group Project
+
+In your groups, I want you to create a more complex figure from the msleep dataset. Use your POGIL coding-group assignments. 
+
+Here is the question your visualization should address - is there a difference among the different orders of mammals in the average number of hours a day a mammal is awake?
+
+Things to remember: 
+  1. Use your group roles and the POGIL pipeline for data visualization we've used before. You should DRAW the chart you want to build first.  
+  2. Pick your favorite measure of spread/error within each group - just make it clear when we show and discuss figures which one you used.  
+  3. Describe any major patters that you found (the recorder should write a concise sentence or two describing these results)
+  4. Also think and discuss any outliers or particularly interesting parts of the data set. 
+  5. Use the web. Think about the different orders, what types of organisms they contain, and their natural history and lifestyle.  
+  6. Think about ways to filter and transform your data to make a better chart. Also, this snippet of code will help with the x-axis (+ theme(axis.text.x = element_text(angle = 45, hjust = 1)))
+  
+(Make sure that they have the code from this entire module - it will help them build their figures)
+  
+  
+``` {r} 
+#Chart example - basic
+library(dplyr)
+msleep %>%
+ggplot(aes(x = factor(order), y = log(awake))) +
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(width = 0.2, size = 2, alpha = 0.4) + 
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+#Would probably be nice to get rid of orders that don't have a lot of examples in them. 
+detach(package:Hmisc)
+msleep$order = factor(msleep$order)
+
+
+to_keep = msleep %>%
+  group_by(order) %>%
+  dplyr::summarize(n = n()) %>%
+  filter(n > 1) %>%
+  pull(order)
+
+
+#Ideal figure
+msleep %>%
+  filter(order %in% to_keep) %>%
+  ggplot(aes(x = order, y = awake)) +
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(width = 0.1, size = 2, alpha = 0.4) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  xlab("Order") +
+  ylab("log hours awake")
+
+```
+
+
