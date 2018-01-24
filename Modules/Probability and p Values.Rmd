@@ -1,0 +1,208 @@
+---
+title: "P-values and Probability"
+author: "RAZ"
+date: "January 11, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Learning Objectives
+
+1. Students will understand what a normal probability distribution looks like.
+
+2. Students can describe the properties of a normal distribution.
+
+3. Students can test the hypothesis that their data follows a normal distribution.
+
+4. Students will be able to use the correct language when discussing p-values to discuss hypotheses.
+
+5. Students will differentiate between Type I and Type II errors, and describe their relationship to p-values.
+
+6. Students can use their knowledge to perform statistical tests of data, and relate their answer to the t-distribution. 
+
+## POGIL Group Setup:
+1. Conceptor (Manager)- In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
+
+2. Coder/Recorder - the person writing the bulk of the code. Importing packages, annotating code throughout. Recording ideas.
+
+3. Error Checker (Reflector) - In addition to reflector duties, this person responsible for debugging code, using helpfiles, etc. 
+
+4. Explainer/Presenter - the person that will do the speaking out. Be able to explain the code and the rationale of each bit to the rest of the class. Should also explain the consensus of the group about what the data show us.
+
+***
+## Part 1 - Introduction to probability densities
+(Note that I drew heavily from this website: https://mse.redwoods.edu/darnold/math15/RActivities.php)
+Probably the most famous (or infamous) distribution of data is the Standard Normal Distribution. 
+
+Working by yourself for two minutes, draw a graph that extends from -3 to 3 on the x-axis, has a mean and median of zero, and is symmetrical around the mean.
+
+
+
+After two minutes, get with your group and compare answers. You have three minutes to report out a consensus drawing. 
+
+#Total area equal to one
+#68%-95%-99.7% Rule
+
+First, let's generate a Standard Normal distribution. You will make the variables "x" and "y". "x" will be a sequence of 200 numbers from -3 to 3, and "y" will be the probability for each value in the sequence. 
+
+When we plot it, we can see see what it looks like.
+```{r}
+x <- seq(-3,3, length=200)
+y <- dnorm(x)
+
+plot(x, y, type="l", lty=2, xlab="x value",
+  ylab="Density", main="Normal Distribution")
+
+
+```
+
+What do you notice about this distribution? 
+
+
+With what do you think the mean value is for this distribution? 
+
+
+
+What about the median value? 
+
+
+
+In the space below, figure out a way to calculate the mean and median of our data set "x". After you have calculated the mean and median, reproduce my b=plot above and use the function abline() to add a blue vertical line at the mean.
+```{r}
+
+#abline(v=, col=)
+
+```
+
+
+There are many more interesting things about the Normal distribution that are useful in statistical anlysis. For example, let's look at how much (i.e. what percentage) of the data in a normal distibution fall within a single standard deviation from the mean.The function pnorm() will calculate this for us. However, we have to make sure we get the area between -1 and 1 standard deviation, so we calculate each value independently, and subtract one from the other. 
+
+pnorm() takes the arguents pnorm(x, mean, sd). 
+
+With your group, decide how to calculate the area to the left of 1 for a normal distribution (using the mean value you deduced above)
+```{r}
+##one SD from the mean
+pnorm(1,mean=0, sd=1)-pnorm(-1,mean=0,sd=1)
+
+```
+Based on your result, what percentage of the data in a normal distribution lies within 1 standard deviation from the mean?
+
+
+
+We can also visualize this using some tricky commands. We remake our plot, above, and then generate a smaller distribution plot inside of it that colors in the area between -1 and 1 standard deviation.
+```{r}
+
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-1,1,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-1,x,1),c(0,y,0),col="red")
+
+```
+
+
+Modify the code above to calculate and visualize the percentage of data in a normal distribution that lies within two and three standard deviations of the mean. 
+```{r}
+##two SD from the mean
+
+pnorm(2,mean=0, sd=1)-pnorm(-2,mean=0,sd=1)
+
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-2,2,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-2,x,2),c(0,y,0),col="red")
+
+##three SD from the mean
+pnorm(3,mean=0, sd=1)-pnorm(-3,mean=0,sd=1)
+
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-3,3,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-3,x,3),c(0,y,0),col="red")
+
+```
+
+
+What percentage of the data falls between three standard deviations of the mean in a normal distribution? 
+
+
+
+What is the probability that a data point in a normal distribution lies beyond three standard deviations of the mean? 
+
+
+
+Come up with a way to calculate this value, and report it out
+```{r}
+#few ways
+1-(pnorm(3,mean=0, sd=1)-pnorm(-3,mean=0,sd=1)
+)
+
+#
+p<-pnorm(3,mean=0, sd=1)-pnorm(-3,mean=0,sd=1)
+1-p
+```
+
+
+
+Now let's learn how to determine if a set of data follows a normal distribution. 
+
+First, let's generate some random data and plot it. Don't worry about the commands right now, but if you must know prob=TRUE makes the area of each bar of the histogram equal to the proportion of data in that region, and the breaks="scott" simply graphs this on the same scale as our normal distribution, above. 
+```{r}
+x <- rnorm(2000)
+hist(x,prob=TRUE,breaks="scott")
+
+```
+
+
+Describe this plot, visually. 
+
+
+What do you think the mean of this data set is?
+
+What do you think the median of this data set is?
+
+Calculate both of these values, and add a vertical line on your graph depcting one of them.
+```{r}
+hist(x,prob=TRUE,breaks="scott")
+
+```
+
+
+Next we will draw a QQ plot for our data. This graphs the proportion of our data in each class on the Y-axis, against the normal distribution on the X-axis. 
+
+```{r}
+qqnorm(x)
+qqline(x)
+```
+
+
+Our data points are the open circles, and the line is the data points for the normal distribution. 
+
+Describe this plot. 
+
+
+Do you think that our data comes from a normal distribution? What led you to this conclusion? 
+
+Plot and examine the data below and discuss whether your group thinks this data is normal or not. 
+```{r}
+x <- rt(2000,5)
+hist(x,prob=TRUE,breaks="scott")
+qqnorm(x)
+qqline(x)
+```
+
+The command we used to generate this data was rt(), which takes the arguments n and df. That is, it should look like rt(n=2000, df=5). The n is the number of observations, and df stands for "degrees of freedom", which represent the number of observations that are free to change each time you estimate certain things (such as the mean). 
+```{r}
+x <- rt(2000,30)
+hist(x,prob=TRUE,breaks="scott")
+qqnorm(x)
+qqline(x)
+```
+
