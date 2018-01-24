@@ -42,8 +42,6 @@ Working by yourself for two minutes, draw a graph that extends from -3 to 3 on t
 
 After two minutes, get with your group and compare answers. You have three minutes to report out a consensus drawing. 
 
-#Total area equal to one
-#68%-95%-99.7% Rule
 
 First, let's generate a Standard Normal distribution. You will make the variables "x" and "y". "x" will be a sequence of 200 numbers from -3 to 3, and "y" will be the probability for each value in the sequence. 
 
@@ -72,7 +70,7 @@ What about the median value?
 In the space below, figure out a way to calculate the mean and median of our data set "x". After you have calculated the mean and median, reproduce my b=plot above and use the function abline() to add a blue vertical line at the mean.
 ```{r}
 
-abline(v=, col=)
+#abline(v=, col=)
 
 ```
 
@@ -206,3 +204,68 @@ qqnorm(x)
 qqline(x)
 ```
 
+```{r}
+hist(ToothGrowth$len, prob=TRUE)
+plot(density(ToothGrowth$len))
+qqnorm(ToothGrowth$len)
+qqline(ToothGrowth$len)
+```
+
+
+Looking at plots is a good first step, but we can do better by actually putting the data through a formal Hypothesis Test. When we test a hypothesis, we pose a null hypothesis, and then we look for evidence for whether we can Accept or Reject this null hypothesis. 
+
+Generally speaking, if the "p-value", or probability value, of a test is below the value of 0.05, we "reject" our null hypothesis. 
+
+In the case of testing for normality, we test the null hypothesis below. 
+
+Null hypothesis:
+ The data is normally distributed
+
+If the p-value is LESS than 0.05, and we reject our null hypothesis, what does that mean about our data?
+
+If the p-value is GREATER than 0.05, and we accept our null hypothesis, what does that mean about our data? 
+
+
+Run the code below, and decide whether or not to accept the null hypothesis of normality for our data.
+```{r}
+shapiro.test(ToothGrowth$len)
+
+```
+
+So, what does that mean for our data set? Can you give me some of the features you would expect from this data set, based on what you know about the Normal Distribution? 
+
+
+
+
+The code below will calculate how many of the observations in the data set fall within one standard deviation of the mean of this dataset. What percentage of the observations does this represent? How does it compare to what we know about the standard normal distribution? 
+
+
+
+
+```{r}
+len<-ToothGrowth$len
+mean.len<-mean(len)
+sd.len<-sd(len)
+
+sum(len>=mean.len-sd.len & len<=mean.len+sd.len)
+
+
+```
+
+In the space below, determine how many observations fall within 2 and 3 standard deviations from the mean. 
+
+```{r}
+sum(len>=mean.len-2*sd.len & len<=mean.len+2*sd.len)
+
+sum(len>=mean.len-3*sd.len & len<=mean.len+3*sd.len)
+```
+
+
+
+How do these numbers compare to what you would expect from the Standard Normal Distribution? 
+
+
+
+Concept Question:
+
+Think about why it might be important, on a theoretical level, that your data follows the assumptions of a normal distribution. (hint, think about this in relation to the Mean of your data, and what the ultimate goal of collecting data is in the first place)
