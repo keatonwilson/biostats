@@ -11,9 +11,9 @@ library(tidyverse)
 library(Hmisc)
 ```
 ##Learning Objectives:  
-  1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (lying with charts).
+  1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (more lying with charts).
   
-  2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance) - REAL definition of 95% confidence interval (subtle, but important).
+  2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance, IQR) - REAL definition of 95% confidence interval (subtle, but important).
   
   3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
 
@@ -54,18 +54,18 @@ ggplot(aes(x = factor(vore), y = sleep_total)) +
 
 ####1d. Group Challenge #2 - What's wrong with this plot?
 
-  * Work together in your groups. Spend 10 minutes discussing the plot you just generated.    Focus on a few key points. 
+  * Work together in your groups. Spend 10 minutes discussing the plot you just generated. Focus on a few key points. 
     1. What conclusion does an uninformed reader take away from this plot?
     2. What are some of the problems with visualizing data this way?
     3. What might you want to know to make better interpretations of the data here?
-    4. How would you make the plot better? The conceptors will draw their versions of          better plots on the board. 
+    4. How would you make the plot better? The conceptors will draw their versions of better plots on the board. 
     
   You'll report out after the 10 minutes. 
   
   General Problems students will come up with:  
-  1. Only showing averages, no idea of the spread of the data - can we draw accurate         conclusions just from averages?
+  1. Only showing averages, no idea of the spread of the data - can we draw accurate conclusions just from averages?
   2. Other graphical problems
-  3. Data exists above the average and below the average, but it looks like there is only    data below the average (bar charts suck). 
+  3. Data exists above the average and below the average, but it looks like there is only data below the average (bar charts suck). 
   
 Let's make a better chart.
 
@@ -82,4 +82,214 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
 ```
 
 This code is pretty complex. Don't worry too much about it the structure (thuogh remember what we built here so you can poach code at some point down the road)!
+
+Quickly run through what is better about this - and how your conclusions differed with this data visualization versus the first one we made. Maybe put up both side by side.
+
+### 2. Different ways to talk about variance and error
+
+There are different ways of quantifying error. Let's talk about them, their definitions, their usefulness and how they're calculated. 
+
+#### 2a. Tools to describe variance
+
+Variance is a numerical description of how a set of data sits around the mean of that data. 
+  * High variance = lots of spread.
+  * Low variance = not much spread.
+  
+What does this look like?
+
+```{r}
+#Let's generate some fake data. 2 populations of rabbits, where we measured ear length. 
+
+library(tidyverse)
+set.seed(42)
+pop1 = data.frame(ear_length = rnorm(mean = 25, n = 123, sd = 5),
+                  population = "pop1")
+pop2 = data.frame(ear_length = rnorm(mean = 25, n = 145, sd = 2),
+                  population = "pop2")
+hop = as.tibble(bind_rows(pop1, pop2))
+
+ggplot(hop, aes(x = ear_length, fill = population)) +
+  geom_histogram(binwidth = 0.5) +
+  theme_classic()
+```
+
+Questions for the groups (10 minutes and then report out)  
+  1. Which population has the highest variance? How can you tell?  
+  2. Does the population mean have any effect on the population's variance?  
+  3. What sort of (biological) conclusions might you draw about these two populations? What hypotheses would you make for why we see differences in variance in ear length?  
+
+Ok, so we can see the variance, but can we quantify it? Yep.
+
+```{r}
+#Variance caluclation for rabbit population 1
+var(hop[hop$population == "pop1",]$ear_length)
+
+#Variance calculation for rabbit population 2
+var(hop[hop$population == "pop2",]$ear_length)
+
+```
+
+####2a. Standard Deviation
+
+Standard deviation is another measure people use frequently - it's just the square root of the variance - it's nice because the units are the same as the mean.  
+R has a function for sd as well!
+
+```{r}
+#Showing that that the square root of the variance is the calculation for the SD
+#Square root of the variance
+var(hop[hop$population == "pop1",]$ear_length)^(0.5)
+
+#Using the SD function
+sd(hop[hop$population == "pop1",]$ear_length)
+```
+
+####2b. Standard Error of the Mean
+You'll also see people throw around standard error of the mean. The standard error is simply the standard deviation divided by the square root of the sample size.  
+This serves a different purpose than standard deviation. 
+SD gives you information about the spread and variability of your data.
+SEM gives you infromation about the precision of your mean, or looking at differences between groups.
+
+No built in function.
+```{r}
+
+#Writing a short SEM function
+sem = function(x) {
+  sd(x)/sqrt(length(x))
+}
+
+#calculating the SEM for 
+sem(hop[hop$population == "pop1",]$ear_length)
+```
+
+Let's go back to the Mammal sleep dataset
+
+```{r}
+#This is the figure from before - what if I wanted to plot the SEM instead of the quantile thing I plotted here?
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  geom_linerange(stat = "summary",
+                  fun.ymin = function(z) {quantile(z, 0.25)},
+                  fun.ymax = function(z) {quantile(z,0.75)}, fun.y = "median") +
+  stat_summary(fun.y = "median", size = 4, color = "blue", geom = "point", alpha = 0.6)
+
+
+#First, we have to generate the summary data to plot on top of the raw points
+sleep_summary = msleep %>%
+  filter(!is.na(vore)) %>%
+    group_by(vore) %>%
+      summarise(N = length(sleep_total),
+                mean = mean(sleep_total),
+                sd = sd(sleep_total),
+                sem = sd / sqrt(N))
+
+
+
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  stat_summary(fun.y = "mean", size = 4, color = "blue", geom = "point", alpha = 0.6) +
+  stat_summary(fun.data = mean_se, geom = "linerange")
+```
+
+
+####2d. 95% confidence intervals  
+And finally, 95% confidence intervals. The "be all, end all" for stats in science. :/  
+**Formal definition:** frequency of possible confidence intervals that contain the true value of their corresponding parameter. So... a 95% confidence interval of the mean means that here, if we sampled the data an infinite number of times, 95% of the confidence intervals that we would generate would contain the mean. 
+
+**Practical definition:** if your confidence intervals overlap a lot, your means aren't different from each other. If they don't overlap, your means are probably different. There is a lot of debate about the history and utility of confidence intervals, which you will probably encounter. Just be prepared.  
+
+Here is how we calculate them:  
+
+``` {r}
+#Same plot as before:
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.6) + 
+  theme_classic() +
+  stat_summary(fun.y = "mean", size = 4, color = "blue", geom = "point", alpha = 0.6) +
+  stat_summary(fun.data = mean_cl_normal, geom = "linerange")
+```
+
+####2e. IQR (Interquartile Range)
+
+Formally, the distance that contains 50% of your data (between the 1st and 3rd quartile). Most commonly shown in boxplots, which ARE THE FAR SUPERIOR VERSION OF BAR CHARTS. Also, we're not really going to talk about distribution skews in here, but IQR is pretty robust to skewed distributions. 
+
+Group exercise
+
+Together as a group - answer the following questions about the following chart:  
+  1. What does the horizontal bar in the middle of the box depict?  
+  2. What do the two horizontal sides of the box represent?  
+  3. What do the vertical lines represent?  
+  4. Why are the top 4 dots in the omnivore group not included in the rest of the data?  
+
+``` {r}
+#Boxplot and IQR
+msleep %>%
+  filter(!is.na(vore)) %>%
+ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, size = 3, alpha = 0.4) + 
+  theme_classic() 
+
+```
+
+
+####3. Putting it all together - mini Group Project
+
+In your groups, I want you to create a more complex figure from the msleep dataset. Use your POGIL coding-group assignments. 
+
+Here is the question your visualization should address - is there a difference among the different orders of mammals in the average number of hours a day a mammal is awake?
+
+Things to remember: 
+  1. Use your group roles and the POGIL pipeline for data visualization we've used before. You should DRAW the chart you want to build first.  
+  2. Pick your favorite measure of spread/error within each group - just make it clear when we show and discuss figures which one you used.  
+  3. Describe any major patters that you found (the recorder should write a concise sentence or two describing these results)
+  4. Also think and discuss any outliers or particularly interesting parts of the data set. 
+  5. Use the web. Think about the different orders, what types of organisms they contain, and their natural history and lifestyle.  
+  6. Think about ways to filter and transform your data to make a better chart. Also, this snippet of code will help with the x-axis (+ theme(axis.text.x = element_text(angle = 45, hjust = 1)))
+  
+(Make sure that they have the code from this entire module - it will help them build their figures)
+  
+  
+``` {r} 
+#Chart example - basic
+library(dplyr)
+msleep %>%
+ggplot(aes(x = factor(order), y = log(awake))) +
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(width = 0.2, size = 2, alpha = 0.4) + 
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+#Would probably be nice to get rid of orders that don't have a lot of examples in them. 
+detach(package:Hmisc)
+msleep$order = factor(msleep$order)
+
+
+to_keep = msleep %>%
+  group_by(order) %>%
+  dplyr::summarize(n = n()) %>%
+  filter(n > 1) %>%
+  pull(order)
+
+
+#Ideal figure
+msleep %>%
+  filter(order %in% to_keep) %>%
+  ggplot(aes(x = order, y = awake)) +
+  geom_boxplot(outlier.alpha = 0) +
+  geom_jitter(width = 0.1, size = 2, alpha = 0.4) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  xlab("Order") +
+  ylab("log hours awake")
+
+```
+
 

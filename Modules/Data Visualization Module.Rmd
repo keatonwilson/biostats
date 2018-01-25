@@ -59,13 +59,13 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
       
 Figures:  
 
-  1. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/3d-column-chart-of-awesome.png)  
+  1. ![](https://raw.githubusercontent.com/keatonwilson/biostats/master/Images/3d-column-chart-of-awesome.png)  
   
-  2. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/Bling_fig3.jpg)  
+  2. ![](https://raw.githubusercontent.com/keatonwilson/biostats/master/Images/Bling_fig3.jpg)  
   
-  3. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/cawley_fig1.jpg)  
+  3. ![](https://raw.githubusercontent.com/keatonwilson/biostats/master/Images/cawley_fig1.jpg)  
   
-  4. ![](/Users/KeatonWilson/Documents/Projects/Biostats/Images/roeder_fig4.jpg)  
+  4. ![](https://raw.githubusercontent.com/keatonwilson/biostats/master/Images/roeder_fig4.jpg)  
   
       
   * Students will examine and critique figures from primary literature in their groups. Each group
