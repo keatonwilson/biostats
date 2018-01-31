@@ -2,8 +2,6 @@
 
 This project is a repository for the POGIL Biostats course developed by Nicholas DiRienzo, Keaton Wilson and Robbie Zinna in 2017.  
 
-Blah, blah making changes to stuff.... adding a line of text to the readme.
-
 ***  
 ## Introductory Biostatistics
 
