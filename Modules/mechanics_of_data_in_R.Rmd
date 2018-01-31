@@ -18,6 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 4. Students will be able to construct a data frame from an existing file.
 
+5. Do we need a fifth objective?
+
 ## POGIL Group Setup:
 1. Conceptor (Manager)- In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
 
