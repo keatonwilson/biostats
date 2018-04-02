@@ -11,17 +11,16 @@ library(tidyverse)
 library(Hmisc)
 ```
 ##Learning Objectives:  
-  1. Students will be able to describe the differences between the different measures of center for sets of data (mean, median, mode), and be able to deploy them to summarize data sets. 
+  1. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (more lying with charts).
   
-  2. Students will be able to describe the utility of attributing error/variance to data sets (real-world scenarios) - why error and variance matters (more lying with charts).
+  2. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance, IQR) - REAL definition of 95% confidence interval (subtle, but important).
   
-  3. Students will be able to describe different ways of attributing error to data sets (SE, SD, CI, variance, IQR) - REAL definition of 95% confidence interval (subtle, but important).
-  
-  4. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
+  3. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
 
-## 1a. Why are summary statistics important?
 
-Let's test this out by building some charts in R. We talked a few weeks ago about data visualization, and everyone has seen typcial bar charts - be it in scientific papers or on Fox News. Let's plot some stuff and explore what measures of center we might use, and why visualizing error is important.
+## 1a. Why is quantifying and plotting error important?
+
+Let's test this out by building some charts in R. We talked a few weeks ago about data visualization, and everyone has seen typcial bar charts - be it in scientific papers or on Fox News. Let's plot some stuff and explore why error is important.
 
 ```{r}
 #Load ggplot2 along with the msleep data set
@@ -40,17 +39,6 @@ In your groups, take 3 minutes to answer the following three questions:
 3. How many observations are in this data set?
 
 I'll randomly call on group reporters for answers!
-
-####1c. Measures of center
-Scientists use measures of center to describe the overal properties of a group, but also to make comparisons among groups.  
-
-You'll see sentences in results sections of papers like: "Flies that were fed a reduced-protein diet had average wing sizes that were smaller (3.2 mm plus or minues 0.2 mm) than flies that were fed a control diet (6.7 mm plus or minues 0.35 mm)."  
-
-There are three main ways to calculate the "center" of a distribution of data, the mean, median and mode.  
-
-R has built in functions that do this for us.  
-
-
 
 ###1c. Bar charts
 
