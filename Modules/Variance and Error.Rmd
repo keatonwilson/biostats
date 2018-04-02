@@ -1,5 +1,5 @@
 ---
-title: "Variance and Error - Week 6"
+title: "Centers, Variance and Error - Week 6"
 author: "Keaton Wilson"
 date: "12/24/2017"
 output: html_document
@@ -19,9 +19,9 @@ library(Hmisc)
   
   4. Students can use variance and error to make interesting inferences about data (outliers - maybe simpler is better here).  
 
-## 1a. Why are summary statistics important?
+#### 1a. Why are summary statistics important?  
 
-Let's test this out by building some charts in R. We talked a few weeks ago about data visualization, and everyone has seen typcial bar charts - be it in scientific papers or on Fox News. Let's plot some stuff and explore what measures of center we might use, and why visualizing error is important.
+Let's take a look at some data.  
 
 ```{r}
 #Load ggplot2 along with the msleep data set
@@ -31,7 +31,7 @@ library(ggplot2)
 str(msleep) 
 ```
 
-####1b. Group Challenge #1 - Review: practicing working with new data
+#### 1b. Group Challenge #1 - Review: practicing working with new data
 
 In your groups, take 3 minutes to answer the following three questions:
 
@@ -41,18 +41,56 @@ In your groups, take 3 minutes to answer the following three questions:
 
 I'll randomly call on group reporters for answers!
 
-####1c. Measures of center
+#### 1c. Measures of center
 Scientists use measures of center to describe the overal properties of a group, but also to make comparisons among groups.  
 
 You'll see sentences in results sections of papers like: "Flies that were fed a reduced-protein diet had average wing sizes that were smaller (3.2 mm plus or minues 0.2 mm) than flies that were fed a control diet (6.7 mm plus or minues 0.35 mm)."  
 
 There are three main ways to calculate the "center" of a distribution of data, the mean, median and mode.  
 
+What are they?
+
+Mean = sum everything, divide the number of things you summed.
+Median = the most middle number... (the middlest?), if there are two, average the two in the middle.
+Mode = the most common (this is used a lot less, and there actually isn't a built-in function in R for it).
 R has built in functions that do this for us.  
 
+Let's practice:  
 
+```{r}
+str(msleep)
 
-###1c. Bar charts
+#Why don't we calculate the centers of a few of these columns? What is the mean and median of bodywt?
+
+mean(msleep$bodywt)
+median(msleep$bodywt)
+
+#They're different... but not by much. 
+```
+
+We'll have an example later of instances where it's best to use median versus mode, but overall the rule is:  
+  1. Use mean if you have a big sample size that is normally distributed. 
+  2. Use median if you have a smaller sample size that is skewed.
+
+#### 1d. Group Challenge
+We calculated means of columns above, but that's not really useful, what is more informative would be calculating the average brain weights for all the different orders of mammals. Can you accomplish this?
+Work together in your group to write a script that does this. 
+
+```{r}
+#There will be a variety of ways to do this, but the easiest is with the pipe and dyplyr
+library(tidyverse)
+
+msleep %>%
+  group_by(order) %>%
+  filter(!is.na(brainwt)) %>%
+  dplyr::summarize(avg_brainwt = mean(brainwt, na.rm = TRUE),
+                   n())
+
+```
+
+#### 1e. Bar charts
+
+Let's take what we've learned and build some charts in R. We talked a few weeks ago about data visualization, and everyone has seen typcial bar charts - be it in scientific papers or on Fox News. Let's plot some stuff and explore what measures of center we might use, and why visualizing error is important.
 
 ```{r}
 #Let's build a bad bar chart - one interesting question we might ask - what is the difference in time spent sleeping across different feeding types? i.e. do herbivores sleep more than carnivores?
@@ -64,7 +102,7 @@ ggplot(aes(x = factor(vore), y = sleep_total)) +
   theme_classic()
 ```
 
-####1d. Group Challenge #2 - What's wrong with this plot?
+#### 1f. Group Challenge #2 - What's wrong with this plot?
 
   * Work together in your groups. Spend 10 minutes discussing the plot you just generated. Focus on a few key points. 
     1. What conclusion does an uninformed reader take away from this plot?
@@ -141,7 +179,7 @@ var(hop[hop$population == "pop2",]$ear_length)
 
 ```
 
-####2a. Standard Deviation
+#### 2a. Standard Deviation
 
 Standard deviation is another measure people use frequently - it's just the square root of the variance - it's nice because the units are the same as the mean.  
 R has a function for sd as well!
@@ -155,7 +193,7 @@ var(hop[hop$population == "pop1",]$ear_length)^(0.5)
 sd(hop[hop$population == "pop1",]$ear_length)
 ```
 
-####2b. Standard Error of the Mean
+#### 2b. Standard Error of the Mean
 You'll also see people throw around standard error of the mean. The standard error is simply the standard deviation divided by the square root of the sample size.  
 This serves a different purpose than standard deviation. 
 SD gives you information about the spread and variability of your data.
@@ -209,7 +247,7 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
 ```
 
 
-####2d. 95% confidence intervals  
+#### 2d. 95% confidence intervals  
 And finally, 95% confidence intervals. The "be all, end all" for stats in science. :/  
 **Formal definition:** frequency of possible confidence intervals that contain the true value of their corresponding parameter. So... a 95% confidence interval of the mean means that here, if we sampled the data an infinite number of times, 95% of the confidence intervals that we would generate would contain the mean. 
 
@@ -228,7 +266,7 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
   stat_summary(fun.data = mean_cl_normal, geom = "linerange")
 ```
 
-####2e. IQR (Interquartile Range)
+#### 2e. IQR (Interquartile Range)
 
 Formally, the distance that contains 50% of your data (between the 1st and 3rd quartile). Most commonly shown in boxplots, which ARE THE FAR SUPERIOR VERSION OF BAR CHARTS. Also, we're not really going to talk about distribution skews in here, but IQR is pretty robust to skewed distributions. 
 
@@ -252,7 +290,7 @@ ggplot(aes(x = factor(vore), y = sleep_total, group = factor(vore))) +
 ```
 
 
-####3. Putting it all together - mini Group Project
+#### 3. Putting it all together - mini Group Project
 
 In your groups, I want you to create a more complex figure from the msleep dataset. Use your POGIL coding-group assignments. 
 
