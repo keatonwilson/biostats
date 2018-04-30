@@ -24,13 +24,13 @@ knitr::opts_chunk$set(echo = TRUE)
 4. Students will be able to think critically to use base R or ggplot to produce new visualizations using the expertise of their classmates, the basic syntax they learned in class, and the helpfiles associated with R (and with the web). 
 
 ## POGIL Group Setup:
-1. Conceptor (Manager)- In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
+1. **Conceptor (Manager)** - In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
 
-2. Coder/Recorder - the person writing the bulk of the code. Importing packages, annotating code throughout. Recording ideas.
+2. **Coder/Recorder** - the person writing the bulk of the code. Importing packages, annotating code throughout. Recording ideas.
 
-3. Error Checker (Reflector) - In addition to reflector duties, this person responsible for debugging code, using helpfiles, etc. 
+3. **Error Checker (Reflector)** - In addition to reflector duties, this person responsible for debugging code, using helpfiles, etc. 
 
-4. Explainer/Presenter - the person that will do the speaking out. Be able to explain the code and the rationale of each bit to the rest of the class. Should also explain the consensus of the group about what the data show us.
+4. **Explainer/Presenter** - the person that will do the speaking out. Be able to explain the code and the rationale of each bit to the rest of the class. Should also explain the consensus of the group about what the data show us.
 
 ***
 ## Part 1 - A Visualization Primer - (45 minutes)
@@ -75,8 +75,8 @@ Figures:
 ### 1c. Principles of Visualization - an Introduction into the Grammar of Graphics
 #### 1c.1 Grammar of graphics flowchart
   * Hand out labeled pieces of paper to groups:
-      1. A fake data frame (data)
-      2. A series of mappings based on that data frame (aesthetics)
+      1. A fake data frame  - a good resource for this might be the msleep data set (loaded with tidyverse)  
+      2. A series of mappings based on that data frame (aesthetics) - this is sometimes a hard concept. Think about ways to visually represent the data.  
       3. A set of geometric objects (geoms)
       4. Annotations
       5. Coordinate system
@@ -110,9 +110,10 @@ ggplot(data = mtcars, aes(x = log(mpg), y = log(hp), col = factor(cyl))) +
        color = "Cylinders", 
        size = "Weight")
 ```
-  * Show groups the Figure, not the code. 
-  * Part 1 - Draw the Figure on paper. Have the group label each piece clearly.
-  * Report out. Show figure up on the screen and draw on/label each piece based on group feedback.   
+  
+  * Show groups the Figure, not the code.  
+  * Part 1 - Draw the Figure on paper. Have the group label each piece clearly.  
+  * Report out. Show figure up on the screen and draw on/label each piece based on group feedback.  
   
 ## Part 2 - Basic Plotting in R  
 
@@ -125,6 +126,7 @@ ggplot(data = mtcars, aes(x = log(mpg), y = log(hp), col = factor(cyl))) +
 install.packages("DAAG")
 ```
 ```{r, tidy=TRUE, error=FALSE, message=FALSE}
+#install.packages("DAAG")
 library(DAAG)
 head(rice)
 ```
@@ -164,7 +166,7 @@ hist(rice$RootDryMass, breaks = 10, main = NULL, xlab = "Root Dry Mass (g)")
 
 ### 2c Plotting 2 variables (boxplots - 15 minutes)
 
-  * 1 Variable is great, but your data will often contain more than just one variable. Think about the rice data table. What do you think the scientists are interested in plotting?
+  * One variable is great, but your data will often contain more than just one variable. Think about the rice data table. What do you think the scientists are interested in plotting?
   * What are some potential figures that scientists could plot? What would the figures look like?
   * Take 5 minutes in your group. Have your manager/conceptor draw as many different types of figures as they can form the data. 
   * Put figures on the board - among these will probably be boxplots and maybe scatter plots? We'll talk about these next.
@@ -287,7 +289,7 @@ ggplot(rice, aes(x = RootDryMass, y = ShootDryMass, color = fert)) +
   
 ```
 
-Reflector assignment (10 minutes)  
+#### Reflector assignment (10 minutes)  
   * Write a 1 paragraph summary of some of the challenges your group faced while working through these exercises. 
       Focus on how you divided the workload based on your group job assignments, and how you worked through those challenges as a group. 
       What would you try and do differently in the next module as a group to alleviate some of these challenges?  
