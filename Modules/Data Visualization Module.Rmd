@@ -34,7 +34,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ***
 ## Part 1 - A Visualization Primer - (45 minutes)
-  
   Some inspiring figures:  
 http://www.r-graph-gallery.com/19-map-leafletr/  
 http://www.r-graph-gallery.com/21-distribution-plot-using-ggplot2  
@@ -49,7 +48,16 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
   * Take 5 minutes with your group - compare your notes, come to a group consensus - rank the top 5 reasons from the group.
   * Have your *Presenter* write the group's reasons on the board, and we'll spend some time discussing.
   
-### 1b Figure Critique - What makes a good data visualization?
+### 1b. Types of visualization - big thinking about data
+
+#### 1b.1 Small group activity  
+  Within your group - what are all of the types of visualization you can think of. The Conceptor will draw them initially, then I'll draw them on the board after you speak out. 
+  
+#### 1b.2 Activity - matching data types to visualization types
+  
+  
+  
+### 1c Figure Critique - What makes a good data visualization?
   * Small mini-lecture on principles of data visualization and design.
     1. Some resources to build this: 
       a. https://www.fusioncharts.com/whitepapers/downloads/Principles-of-Data-Visualization.pdf
@@ -72,8 +80,8 @@ Figures:
       will be passed a figure, students will take 10 minutes to try to interpret the figure, and
       generate a list of problems. Each group will also draw and present a reimagined version of the       figure that is better. 
   
-### 1c. Principles of Visualization - an Introduction into the Grammar of Graphics
-#### 1c.1 Grammar of graphics flowchart
+### 1d. Principles of Visualization - an Introduction into the Grammar of Graphics
+#### 1d.1 Grammar of graphics flowchart
   * Hand out labeled pieces of paper to groups:
       1. A fake data frame  - a good resource for this might be the msleep data set (loaded with tidyverse)  
       2. A series of mappings based on that data frame (aesthetics) - this is sometimes a hard concept. Think about ways to visually represent the data.  
@@ -85,7 +93,7 @@ Figures:
   
   * Spend 5 minutes and discuss the different flowcharts, though everyone should probably be on the same page on this. 
   
-#### 1c.2 Grammar of graphics deconstruction
+#### 1d.2 Grammar of graphics deconstruction
   * Groups will work to decode a complex figure into its different graphical pieces
   
 Here is the code and figure, based on the mtcars dataset.
