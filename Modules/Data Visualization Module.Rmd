@@ -51,12 +51,15 @@ http://www.r-graph-gallery.com/123-circular-plot-circlize-package-2/
 ### 1b. Types of visualization - big thinking about data
 
 #### 1b.1 Small group activity  
-  Within your group - what are all of the types of visualization you can think of. The Conceptor will draw them initially, then I'll draw them on the board after you speak out. 
+  Within your group - what are all of the types of visualization you can think of. The Conceptor will draw them initially, then I'll draw them on the board during a speak out.  
   
-#### 1b.2 Activity - matching data types to visualization types
+
   
+#### 1b.2 Activity - matching data types to visualization types  
+  Matching activity in group - can you match the visualization to the data type. 
   
-  
+  File for activity is in the images folder. 
+
 ### 1c Figure Critique - What makes a good data visualization?
   * Small mini-lecture on principles of data visualization and design.
     1. Some resources to build this: 
