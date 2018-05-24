@@ -10,15 +10,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Learning Objectives
 
-1. Students will be able to recognize the different types of R objects.
+1. Students will be able to assign values to objects.
 
-2. Students will be able to enter vectors manually, generate vectors automatically, get information about a vector, return specific items from a vector, and transform vectors.
+2. Students will be able to recognize and describe the different types of atomic vectors.
 
-3. Students will be able to generate a data frame from a group of vectors, and understand how to access different parts of a data frame.
+3. Students will be able to select desired entries from a vector.
 
-4. Students will be able to construct a data frame from an existing file.
+4. Students will be able to identify a function in R, and describe how to pass arguments to a function.
 
-5. Do we need a fifth objective?
+5. Students will be able to predict the outcome of applying mathematical operators and functions to a vector.
+
 
 ## POGIL Group Setup:
 1. Conceptor (Manager)- In addition to managerial duties - does initial constructions of the what the figure should look like. Draws things, conceptualizes how the data will be presented. 
@@ -65,12 +66,22 @@ Make two new vectors named "parasites" and "sex" that contains the values provid
 
 ```
 
-Let's try some more complicated work with vectors. In the space below calculate the mean number of parasites, and divide each value of "weight" by the mean number of parasites. REPORT OUT YOUR CODE
+We discussed them briefly above, but in R, most of the work you will perform uses commands known as "functions". Functions typically are a word followed by parentheses (). One that is very useful is the function "mean()", which calculates the mean of whatever object you specify as an argument inside the function. In the space below calculate the mean of the parasites vector.
 ```{r}
 
 ```
 
+In addition to an argument specifying the target object for a function, most functions have additional arguments that modify the behavior of the function. You can pass additional arguments to a function by separating them with a comma ",". Below is some code to calculate the mean number of parasites, excluding the first and last value. Can you modify the code to exclude the first two and last two values?
 
+```{r}
+#mean(parasites, trim=1)
+```
+
+You can also save the output of a function to a new object. Below, calculate the mean number of parasites and store it in a new object. Then, uset that object and divide each value of "weight" by the mean number of parasites. REPORT OUT YOUR CODE
+ 
+```{r}
+
+```
 
 Most of the operations you will perform in R (statistical analysis, graphing), use "data frames", which is a fancy way of referring to a collection of columns and rows. There are specifics about the parts of a data frame I'll explain later
 To make a data frame from a group of vectors is easy! Simply type data.frame() and fill in the names of the vectors in the parenthesis. In the space below, make and save a data frame that contains the "sex" and "parasites" vectors.
