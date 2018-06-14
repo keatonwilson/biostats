@@ -304,4 +304,5 @@ ggplot(rice, aes(x = RootDryMass, y = ShootDryMass, color = fert)) +
   * Write a 1 paragraph summary of some of the challenges your group faced while working through these exercises. 
       Focus on how you divided the workload based on your group job assignments, and how you worked through those challenges as a group. 
       What would you try and do differently in the next module as a group to alleviate some of these challenges?  
-  * Email me this reflection.
+  * Email me this reflection.  
+  * (For testing purposes - have the reflector lead a one-up-one down - do this in Google Sheets: Log of one-up-one-down, and a reflection of how you think the group did)
