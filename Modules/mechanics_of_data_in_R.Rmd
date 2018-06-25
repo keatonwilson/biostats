@@ -107,7 +107,7 @@ There are many ways to get at different parts of your data frame, once you've ma
 
 ```
 
-For your final task, using everything you've learned today, add a column to your data frame which contains a vector of the weight of each entry divided by the number of parasites in that entry
+For your final task, using everything you've learned today, add a column to your data frame which contains a vector of the weight of each entry divided by the number of parasites in that entry. REPORT OUT YOUR CODE
 
 ```{r}
 
