@@ -82,6 +82,6 @@ a. Learning Objectives:
   * Levines test?  
   
 #### 11. Regression (Interactions/logistic if class is going well) [Week 11]
-
+*we'll get to regression
 
 
